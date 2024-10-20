@@ -1,3 +1,5 @@
+"use client";
+
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +9,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 import { signInFormSchema } from "@/schema/auth/index";
+
+import { useUsers } from "@/services/queries/auth/useUsers";
 
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
@@ -35,6 +39,10 @@ export const SignInCard = () => {
   };
 
   const { user, setUser } = useStore();
+
+  const { data, isPending, error } = useUsers();
+
+  console.log("data", data);
 
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
@@ -132,6 +140,12 @@ export const SignInCard = () => {
           Set User
         </Button>
       </div>
+
+      <CardContent>
+        {/* {data?.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))} */}
+      </CardContent>
     </Card>
   );
 };
