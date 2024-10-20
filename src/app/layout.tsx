@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
-import { cn } from "@/lib/utils";
+import { TanStackQueryProvider } from "./provider/tanstack-query";
+import { ReactQueryClientProvider } from "@/context/ReactQueryClientProvider";
 
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className, "antialiased min-h-screen")}>
-        {children}
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="en">
+        <body className={cn(inter.className, "antialiased min-h-screen")}>
+          <TanStackQueryProvider>{children}</TanStackQueryProvider>
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }
