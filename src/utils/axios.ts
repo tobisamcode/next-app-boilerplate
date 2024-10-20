@@ -1,13 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
 
+import { sessionStorageService } from "./storage";
+
 const TOKEN_KEY = "auth_token";
 
-const getToken = (): string | null => {
-  if (typeof window !== "undefined") {
-    return sessionStorage.getItem(TOKEN_KEY);
-  }
-  return null;
-};
+const getToken = () => sessionStorageService.getItem(TOKEN_KEY);
 
 const request = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
