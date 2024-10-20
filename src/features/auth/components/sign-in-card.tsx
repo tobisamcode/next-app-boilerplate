@@ -19,6 +19,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { useStore } from "@/store";
 
 export const SignInCard = () => {
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -32,6 +33,8 @@ export const SignInCard = () => {
   const onSubmit = (values: z.infer<typeof signInFormSchema>) => {
     console.log("sign in values", values);
   };
+
+  const { user, setUser } = useStore();
 
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
@@ -122,6 +125,13 @@ export const SignInCard = () => {
           </Link>
         </p>
       </CardContent>
+
+      <div className="flex items-center flex-col space-y-4 mb-2">
+        <h1>User: {user || "No user"}</h1>
+        <Button size="lg" onClick={() => setUser(form.getValues("email"))}>
+          Set User
+        </Button>
+      </div>
     </Card>
   );
 };
